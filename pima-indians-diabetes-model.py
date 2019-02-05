@@ -78,7 +78,7 @@ for train, test in kfold.split(X, y):
 # In[9]:
 
 
-print("%.2f%% (+- %.2f%%)" % (np.mean(cvscores), np.std(cvscores)))
+print("%.2f%% (+- %.2f%%)" % (results.mean()*100, results.std()*100))
 
 
 # In[11]:
@@ -111,7 +111,7 @@ results=cross_val_score(model, X, y, cv=kfold)
 # In[14]:
 
 
-print("%.2f%% (+- %.2f%%)" % (np.mean(cvscores), np.std(cvscores)))
+print("%.2f%% (+- %.2f%%)" % (results.mean()*100, results.std()*100))
 
 
 # In[ ]:
