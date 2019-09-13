@@ -10,9 +10,9 @@ import json
 
 s = time.time()
 
-header = {'User-Agent' : 'EX2INDIA_DATASCIENCE_TEAM'}
+header = {'User-Agent' : DATASCIENCE_Project'}
 
-market_url = r'https://api.newhomesource.com/api/v2/Detail/Markets?partnerid=1'
+market_url = r'https://api.*****.com/api/v2/Detail/Markets?partnerid=1'
 markets = pd.DataFrame(columns = ['Market_Id', 'MarketName', 'StateAbbr', 'StateName'])
 
 market_response = requests.get(market_url, headers = header)
@@ -37,7 +37,7 @@ print('Markets Scraped! Now scraping Homes.')
 communities = pd.DataFrame({'Community_Id':[], 'Community_name':[], 'Market_Id':[]})
 
 for market in markets_list:
-    comm_url = 'https://api.newhomesource.com/api/v2/Search/Communities?partnerid=1&marketid={}'.format(market)
+    comm_url = 'https://api.*******.com/api/v2/Search/Communities?partnerid=1&marketid={}'.format(market)
     try:
         comm_response = requests.get(comm_url)
         comm_text = comm_response.text
@@ -64,7 +64,7 @@ for market in markets_list:
 comm_ids = communities['Community_Id'].astype(int).unique().tolist()
 
 for ids in comm_ids:
-    comm_url = 'https://api.newhomesource.com/api/v2/Detail/Community?partnerid=1&commId={}'.format(ids)
+    comm_url = 'https://api.*******.com/api/v2/Detail/Community?partnerid=1&commId={}'.format(ids)
     try:
         comm_response = requests.get(comm_url)
         comm_text = comm_response.text
@@ -95,7 +95,7 @@ non_processed_homes = []
 
 for market in markets_list:    
     try:
-        home_url = 'https://api.newhomesource.com/api/v2/Search/Homes?partnerid=1&marketid={}&SortBy=Random&SortSecondBy=None'.format(market)
+        home_url = 'https://api.*******.com/api/v2/Search/Homes?partnerid=1&marketid={}&SortBy=Random&SortSecondBy=None'.format(market)
         res = requests.get(home_url, headers = header)
         res_text = res.text
         res_json = json.loads(res_text)
@@ -127,7 +127,7 @@ non_scraped_plan_details = []
 
 
 for ids in plans:
-    comm_url = 'https://api.newhomesource.com/api/v2/Detail/Home?partnerid=1&planId={}'.format(ids)
+    comm_url = 'https://api.*******.com/api/v2/Detail/Home?partnerid=1&planId={}'.format(ids)
     try:
         comm_response = requests.get(comm_url, headers = header)
         comm_text = comm_response.text
@@ -156,7 +156,7 @@ print('Plans Scraping Done! Working on specs scraping...')
 specs = homes[homes['IsSpec'] == 1]['PlanId'].unique().tolist()
 
 for ids in specs:
-    comm_url = 'https://api.newhomesource.com/api/v2/Detail/Home?partnerid=1&specId={}'.format(ids)
+    comm_url = 'https://api.*******.com/api/v2/Detail/Home?partnerid=1&specId={}'.format(ids)
     try:
         comm_response = requests.get(comm_url, headers = header)
         comm_text = comm_response.text
